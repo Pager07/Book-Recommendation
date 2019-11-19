@@ -9,10 +9,13 @@
     <h1>Index</h1>
     <p class="important">
      I AM INSIDE CONTENT BLOCK
-{#    USING FOR LOOP #}
-    {% for key,value in posts.items() %}
+{#    USING FOR LOOP OVER DICTIONARIES #}
+    {% for row_index_key,row_obj_value in posts.items()%}
         <dt>{{ key|e }}</dt>
-        <dd>{{ value|e }}</dd>
+        <dd>{{ row_obj_value['ISBN']|e }}</dd>
+        <dd>{{ row_obj_value['bookRating']|e }}</dd>
+        <dd>{{ row_obj_value['book_title']|e }}</dd>
+        <dd>{{ row_obj_value['genre']|e }}</dd>
     {% endfor %}
 {#USING FOOR LOOP:SKIPPING ITEMS#}
     {% for dict in books %}
