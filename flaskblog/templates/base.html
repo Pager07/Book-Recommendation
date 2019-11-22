@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename = 'main.css') }}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="{{ url_for('static' ,filename='js/form.js') }}"></script>
 </head>
 <body>
-     <main role="main" class="container mx-auto">
+    <div id="home" class="container-fluid">
+        {% block home %}{% endblock %}
+    </div>
+
+    <main id="book_shelf" role="main" class="container mx-auto" style="display:none">
       <div class="row">
-        <div class="col-md-8">
-          {% block content %}{% endblock %}
+        <div class="col-md-8" id="book_content">
+            <div id="recommended_books" style="display: none"></div>
+            <div id="history_books" style="display: none"></div>
+            <div id="browse_books" style="display: none;"></div>
         </div>
-        <div class="col-md-4">
+        <div id="menu" class="col-md-4" >
           <div class="content-section">
-            {%block page_type %}{% endblock page_type%}
-            <p class='text-muted'>
-                {% block page_info %}{% endblock page_info %}
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">{% block first_cell %}{% endblock  %}</li>
-                <li class="list-group-item list-group-item-light">{% block second_cell %}{% endblock  %}</li>
-                <li class="list-group-item list-group-item-light">{% block third_cell %}{% endblock  %}</li>
+            <h3 id="page_type"></h3>
+            <p class='text-muted' id="page_type_info">
+              <ul class="list-group" id="main_list" style="display: none">
+                <li class="list-group-item list-group-item-light" id="l_1"><a href="#">Browse</a></li>
+                <li class="list-group-item list-group-item-light" id="l_2_1"  style="display: none;" ><a href="#">History</a></li>
+                <li class="list-group-item list-group-item-light" id="l_2_2"  style="display: none;"><a href="#">Recommendation</a></li>
+                <li class="list-group-item list-group-item-light" id="l_3"><a href="#">Swap User</a></li>
               </ul>
             </p>
           </div>
         </div>
       </div>
     </main>
-
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+{#    <!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

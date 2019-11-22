@@ -1,34 +1,13 @@
-{% extends "base.html" %}
-{% block page_type %}
-    <h3>Recommended books</h3>
-{% endblock page_type%}
-{% block page_info %}
-    The books on the left are the books I think you will like.
-{% endblock page_info %}
+{% for row_index_key,row_obj_value in posts.items() %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#"> Rating : {{ row_obj_value['bookRating'] }} </a>
 
-{% block first_cell %}
-    Browse
-{% endblock %}
-{% block second_cell %}
-    <a  href="{{ url_for('home') }}">Recommendation</a>
-{% endblock %}
-
-{% block third_cell %}
-    Swap User
-{% endblock %}
-
-{% block content %}
-    {% for row_index_key,row_obj_value in posts.items() %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#"> Rating : {{ row_obj_value['bookRating'] }} </a>
-
-            </div>
-            <h2><a class="article-title" href="#">{{ row_obj_value['book_title'] }}</a></h2>
-            <p class="article-content">ISBN:{{ row_obj_value['ISBN']}}</p>
-            <p class="article-content">GENRE:{{ row_obj_value['genre']}}</p>
-          </div>
-        </article>
-    {% endfor %}
-{% endblock content %}
+        </div>
+        <h2><a class="article-title" href="#">{{ row_obj_value['book_title'] }}</a></h2>
+        <p class="article-content">ISBN:{{ row_obj_value['ISBN']}}</p>
+        <p class="article-content">GENRE:{{ row_obj_value['genre']}}</p>
+      </div>
+    </article>
+{% endfor %}
