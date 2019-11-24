@@ -1,12 +1,16 @@
 {% for row_index_key,row_obj_value in data.items() %}
+        <a class="rating_new" href="#">CLIKCM E </a>
         <article class="media content-section">
           <div class="media-body">
+
             <div class="article-metadata">
-              <a class="mr-2" href="#"> Rate this book :  </a>
+                <a class="mr-2 give_rating" data-toggle="modal" data-target="#exampleModalCenter" href="#"> Rate this book :  </a>
             </div>
-            <h2><a class="article-title" href="#">{{ row_obj_value['book_title'] }}</a></h2>
-            <p class="article-content">ISBN:{{ row_obj_value['ISBN']}}</p>
+            <h2><a class="article-title" >{{ row_obj_value['book_title'] }}</a></h2>
+            <p class="article-content ISBN">ISBN:{{ row_obj_value['ISBN']}}</p>
             <p class="article-content">GENRE:{{ row_obj_value['genre']}}</p>
           </div>
         </article>
-    {% endfor %}
+{% endfor %}
+{# model #}
+

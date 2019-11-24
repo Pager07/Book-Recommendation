@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log('READY!')
     var current_userID;
     $('#submit_user_id').on('submit' ,function(event){
         $('#recommended_books').empty()
@@ -104,6 +105,30 @@ $(document).ready(function () {
         $('#book_shelf').hide()
         current_userID = -1
     })
+
+    // Rating selector
+    $('#myRange').on('input',function () {
+        $('#rating_value').html($('#myRange').val());
+    })
+    
+    $("a.rating_new").on('click',function (event) {
+        console.log('helloworld!')
+        var id = event.target.id;
+        console.log('id = ' + id);
+    })
+    // $('#submit_rating').on('click', function () {
+    //     var rating_value = $('#myRange').val()
+    //     $.ajax({
+    //         data:{userID: current_userID ,
+    //               ISBN:
+    //              rating_value: rating_value},
+    //               type: 'POST'
+    //
+    //     })
+    // })
+
+
+
 
 
 
