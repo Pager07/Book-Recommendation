@@ -96,6 +96,15 @@ $(document).ready(function () {
         })
     })
 
+    $('#l_3').on('click' , function () {
+        $('#home').show()
+        $('#recommended_books').empty()
+        $('#history_books').empty()
+        $('#browse_books').empty()
+        $('#book_shelf').hide()
+        current_userID = -1
+    })
+
 
 
 
