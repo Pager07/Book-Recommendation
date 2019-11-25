@@ -1,6 +1,7 @@
 $(document).ready(function () {
     console.log('READY!')
     var current_userID;
+    var current_isbn;
     $('#submit_user_id').on('submit' ,function(event){
         $('#recommended_books').empty()
         $.ajax({
@@ -80,7 +81,7 @@ $(document).ready(function () {
     });
 
 
-
+// Browse
     $('#l_1').on('click' , function (event) {
         $.ajax({
             data:{userID:current_userID},
@@ -110,22 +111,33 @@ $(document).ready(function () {
     $('#myRange').on('input',function () {
         $('#rating_value').html($('#myRange').val());
     })
-    
-    $("a.rating_new").on('click',function (event) {
-        console.log('helloworld!')
-        var id = event.target.id;
-        console.log('id = ' + id);
+
+
+    $("#recommended_books").on('click','.give_rating',function (event) {
+        var isbn = $(this).text();
+        current_isbn = isbn;
+
     })
-    // $('#submit_rating').on('click', function () {
-    //     var rating_value = $('#myRange').val()
-    //     $.ajax({
-    //         data:{userID: current_userID ,
-    //               ISBN:
-    //              rating_value: rating_value},
-    //               type: 'POST'
-    //
-    //     })
-    // })
+
+    // submit rating button inside modal
+    $('#submit_rating').on('click', function () {
+        var rating_value = $('#myRange').val()
+        $.ajax({
+            data:{userID: current_userID ,
+                  ISBN: current_isbn,
+                  rating_value: rating_value},
+            type: 'POST',
+            url: '/submit_rating'
+        }).done(function (data) {
+            if(data.error) {
+                $('#fail-alert').show()
+            }
+            else{
+                $('#success-alert').show()
+                $('div#recommended_books').empty().append(data.datax).show()
+            }
+        })
+    })
 
 
 

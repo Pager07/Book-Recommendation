@@ -28,7 +28,7 @@
             <h3 id="page_type"></h3>
             <p class='text-muted' id="page_type_info">
               <ul class="list-group" id="main_list" style="display: none">
-                <li class="list-group-item list-group-item-light" id="l_1"><a href="#">Browse</a></li>
+                <li class="list-group-item list-group-item-light browse" id="l_1"><a href="#">Browse</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_1"  style="display: none;" ><a href="#">History</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_2"  style="display: none;"><a href="#">Recommendation</a></li>
                 <li class="list-group-item list-group-item-light" id="l_3"><a href="#">Swap User</a></li>
@@ -52,6 +52,12 @@
               <input type="range" min="1" max="10" value="5" class="slider" id="myRange">
               <span>Rating:</span>
               <span id="rating_value" style="font-weight: bold;color: red"></span>
+              <div class="alert alert-danger" role="alert" id="fail-alert" style="display: none;">
+                Rating submission failed!
+              </div>
+              <div class="alert alert-success" role="alert" id="success-alert" style="display:none">
+                  Rating submission sucess!
+              </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
