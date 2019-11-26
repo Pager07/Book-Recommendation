@@ -134,7 +134,8 @@ $(document).ready(function () {
             }
             else{
                 $('#success-alert').show()
-                $('div#recommended_books').empty().append(data.datax).show()
+                $('div#recommended_books').empty().append(data.recommended_books).show()
+                $('#history_books').empty().append(data.history_books)
             }
         })
     })
