@@ -2,6 +2,7 @@ $(document).ready(function () {
     console.log('READY!')
     var current_userID;
     var current_isbn;
+    var currently_loaded_page ='recommendation';
     $('#submit_user_id').on('submit' ,function(event){
         $('#recommended_books').empty()
         $.ajax({
@@ -58,6 +59,7 @@ $(document).ready(function () {
     })
 
     $('#l_2_2').on('click', function (event) {
+        currently_loaded_page = 'recommendation'
         $.ajax({
             data:{
                 userID: current_userID
@@ -83,6 +85,7 @@ $(document).ready(function () {
 
 // Browse
     $('#l_1').on('click' , function (event) {
+        currently_loaded_page = 'browse'
         $.ajax({
             data:{userID:current_userID},
             type: 'POST',
@@ -114,9 +117,14 @@ $(document).ready(function () {
 
 
     $("#recommended_books").on('click','.give_rating',function (event) {
+        $('#success-alert').hide()
         var isbn = $(this).text();
         current_isbn = isbn;
-
+    })
+   $("#browse_books").on('click','.give_rating',function (event) {
+       $('#success-alert').hide()
+        var isbn = $(this).text();
+        current_isbn = isbn;
     })
 
     // submit rating button inside modal
@@ -134,8 +142,14 @@ $(document).ready(function () {
             }
             else{
                 $('#success-alert').show()
-                $('div#recommended_books').empty().append(data.recommended_books).show()
+                $('div#recommended_books').empty().append(data.recommended_books)
                 $('#history_books').empty().append(data.history_books)
+                $('#browse_books').empty().append(data.browse_books)
+                // if(currently_loaded_page == 'recommendation') {
+                //     $('div#recommended_books').show()
+                // }else if(currently_loaded_page == 'browse'){
+                //     $('#browse_books').show()
+                // }
             }
         })
     })
