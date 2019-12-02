@@ -22,16 +22,24 @@
             <div id="recommended_books" style="display: none"></div>
             <div id="history_books" style="display: none"></div>
             <div id="browse_books" style="display: none;"></div>
+            <div id="trending_books" style="display: none;"></div>
         </div>
         <div id="menu" class="col-md-4" >
           <div class="content-section">
             <h3 id="page_type"></h3>
+              <h2 id="page_type2"></h2>
             <p class='text-muted' id="page_type_info">
+              <span class="text-muted" id="number_books_rated"></span>
               <ul class="list-group" id="main_list" style="display: none">
                 <li class="list-group-item list-group-item-light browse" id="l_1"><a href="#">Browse</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_1"  style="display: none;" ><a href="#">History</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_2"  style="display: none;"><a href="#">Recommendation</a></li>
-                <li class="list-group-item list-group-item-light" id="l_3"><a href="#">Swap User</a></li>
+                <li class="list-group-item list-group-item-light log_out" ><a href="#">Log Out</a></li>
+              </ul>
+               <ul class="list-group" id="main_list2" style="display: none">
+                  <li class="list-group-item list-group-item-light trending" id="l_0"><a href="#">Trending</a></li>
+                   <li class="list-group-item list-group-item-light log_out" ><a href="#">Log Out</a></li>
+
               </ul>
             </p>
           </div>
@@ -58,10 +66,33 @@
               <div class="alert alert-success" role="alert" id="success-alert" style="display:none">
                   Rating submission sucess!
               </div>
+              <div class="alert alert-success" role="alert" id="success-activate-alert" style="display:none">
+                  Account activated! Please relogin with your userID!
+              </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="submit_rating">Submit Rating</button>
+          </div>
+        </div>
+      </div>
+     </div>
+{#modal2    #}
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle2">Welcome to Bookify!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <span>The following is your new userID: </span>
+              <h1 id="new_user_id">Loading..</h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

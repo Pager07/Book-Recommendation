@@ -2,7 +2,9 @@ $(document).ready(function () {
     console.log('READY!')
     var current_userID;
     var current_isbn;
-    var currently_loaded_page ='recommendation';
+    var number_books_rated;
+    var trending_books_tally = 0 ;
+    var current_page = 'home';
     $('#submit_user_id').on('submit' ,function(event){
         $('#recommended_books').empty()
         $.ajax({
@@ -20,7 +22,8 @@ $(document).ready(function () {
                 current_userID = $('#user_id_input').val()
                 $('#home').hide();
                 $('#fail_alert').hide();
-                $('div#recommended_books').append(data.datax).show();
+                $('#main_list2').hide();
+                $('div#recommended_books').empty().append(data.datax).show();
                 $('#book_shelf').show()
 
             //    update page typ
@@ -44,13 +47,14 @@ $(document).ready(function () {
         }).done(function (data) {
             $('#recommended_books').hide()
             $('#browse_books').hide()
+            $('#trending_books').hide()
             $('#page_type').text('Books rated by user:' + current_userID )
             $('#page_type_info').text('The books on the left are the books that you have read.')
             if(data.error){
                 $('#history_books').append('<h1>You have not rated any books</h1>').show()
             }
             else{
-                $('#history_books').append(data.datax).show()
+                $('#history_books').empty().append(data.datax).show()
                 $('#l_2_1').hide()
                 $('#l_2_2').show()
             }
@@ -59,7 +63,6 @@ $(document).ready(function () {
     })
 
     $('#l_2_2').on('click', function (event) {
-        currently_loaded_page = 'recommendation'
         $.ajax({
             data:{
                 userID: current_userID
@@ -85,7 +88,6 @@ $(document).ready(function () {
 
 // Browse
     $('#l_1').on('click' , function (event) {
-        currently_loaded_page = 'browse'
         $.ajax({
             data:{userID:current_userID},
             type: 'POST',
@@ -101,12 +103,14 @@ $(document).ready(function () {
         })
     })
 
-    $('#l_3').on('click' , function () {
+    $('.log_out').on('click' , function () {
         $('#home').show()
         $('#recommended_books').empty()
         $('#history_books').empty()
         $('#browse_books').empty()
         $('#book_shelf').hide()
+        $('#page_type2').hide()
+        $('#new_user_id').text('Loading..')
         current_userID = -1
     })
 
@@ -126,7 +130,11 @@ $(document).ready(function () {
         var isbn = $(this).text();
         current_isbn = isbn;
     })
-
+   $("#trending_books").on('click','.give_rating',function (event) {
+       $('#success-alert').hide()
+        var isbn = $(this).text();
+        current_isbn = isbn;
+    })
     // submit rating button inside modal
     $('#submit_rating').on('click', function () {
         var rating_value = $('#myRange').val()
@@ -140,17 +148,44 @@ $(document).ready(function () {
             if(data.error) {
                 $('#fail-alert').show()
             }
+            else if (current_page =='trending'){
+                $('#success-activate-alert').show()
+                //Update the trending page
+            }
             else{
+                $('#success-activate-alert').hide()
                 $('#success-alert').show()
                 $('div#recommended_books').empty().append(data.recommended_books)
                 $('#history_books').empty().append(data.history_books)
                 $('#browse_books').empty().append(data.browse_books)
-                // if(currently_loaded_page == 'recommendation') {
-                //     $('div#recommended_books').show()
-                // }else if(currently_loaded_page == 'browse'){
-                //     $('#browse_books').show()
-                // }
+                number_books_rated = number_books_rated + 1
             }
+
+        })
+    })
+
+    //button to add new user
+    $('#add_new_user').on('click',  function () {
+        current_page = 'trending'
+        $.ajax({
+            type: 'GET',
+            url: '/add_user'
+        }).done(function (data) {
+            trending_books_tally = trending_books_tally + 8
+            current_userID = data.new_userID
+            $('#home').hide()
+            $('#main_list').hide()
+            $('#book_shelf').show()
+            $('#trending_books').empty().append(data.datax).show()
+            $('#new_user_id').text(current_userID)
+
+
+            $('#page_type').text('Welcome to BOOKIFY user ' +current_userID + '.')
+            $('#page_type2').text('These are some highly popular books in the website.')
+            $('#page_type_info').text('To activate this user account please rate 1 or more books.')
+            $('#main_list2').show()
+
+
         })
     })
 
