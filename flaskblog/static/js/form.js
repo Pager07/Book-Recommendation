@@ -127,6 +127,12 @@ $(document).ready(function () {
         var isbn = $(this).text();
         current_isbn = isbn;
     })
+    $("#history_books").on('click','.give_rating',function (event) {
+        $('#success-alert').hide()
+        var isbn = $('#history_isbn').text();
+        current_isbn = isbn;
+    })
+
    $("#browse_books").on('click','.give_rating',function (event) {
        $('#success-alert').hide()
         var isbn = $(this).text();
