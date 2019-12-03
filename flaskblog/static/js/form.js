@@ -129,7 +129,7 @@ $(document).ready(function () {
     })
     $("#history_books").on('click','.give_rating',function (event) {
         $('#success-alert').hide()
-        var isbn = $('#history_isbn').text();
+        var isbn = $(this).closest('.media-body').find('.history_isbn').text();
         current_isbn = isbn;
     })
 
@@ -141,6 +141,11 @@ $(document).ready(function () {
    $("#trending_books").on('click','.give_rating',function (event) {
        $('#success-alert').hide()
         var isbn = $(this).text();
+        current_isbn = isbn;
+    })
+    $("#history_books").on('click','.delete',function (event) {
+       $('#success-alert').hide()
+        var isbn = $('#history_isbn').text();
         current_isbn = isbn;
     })
     // submit rating button inside modal
@@ -208,6 +213,17 @@ $(document).ready(function () {
         })
     })
 
+    $('#delete_book').on('click' , function () {
+        $.ajax({
+            data: {'userID':current_userID, 'ISBN':current_isbn},
+            type: 'DELETE',
+            url: '/remove_book'
+        }).done(function (data) {
+            $('#success-delete-alert').show()
+            $('#history_books').empty().append(data.datax).show()
+
+        })
+    })
 
 
 

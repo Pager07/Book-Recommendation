@@ -2,12 +2,15 @@
     <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
-          <a class="mr-2 give_rating" data-toggle="modal" data-target="#exampleModalCenter" href="#">Click to update rating : {{ row_obj_value['bookRating'] }} </a>
-
+            <a class="mr-2 give_rating" data-toggle="modal" data-target="#exampleModalCenter" href="#">Click to update rating : {{ row_obj_value['bookRating'] }} </a>
         </div>
         <h2><a class="article-title" href="#">{{ row_obj_value['book_title'] }}</a></h2>
-        <p class="article-content">ISBN:
-            <span id = 'history_isbn'>{{ row_obj_value['ISBN']}}</span></p>
+        <p class="article-content">
+            <a class="mr-2 delete" data-toggle="modal" data-target="#exampleModalCenter3" href="#">Click To Delete ISBN:
+            <span class='history_isbn'>{{ row_obj_value['ISBN']}}</span>
+            </a>
+        </p>
+
         <p class="article-content">GENRE:{{ row_obj_value['genre']}}</p>
       </div>
     </article>
