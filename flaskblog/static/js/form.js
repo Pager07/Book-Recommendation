@@ -110,8 +110,10 @@ $(document).ready(function () {
         $('#browse_books').empty()
         $('#book_shelf').hide()
         $('#page_type2').hide()
+        $("#success-activate-alert").hide()
         $('#new_user_id').text('Loading..')
         current_userID = -1
+        trending_books_tally = 0
     })
 
     // Rating selector
@@ -189,7 +191,16 @@ $(document).ready(function () {
         })
     })
 
-
+    $('#l_0').on('click' , function () {
+        $.ajax({
+            data:{'trending_books_tally':trending_books_tally},
+            type: 'POST',
+            url: '/get_trending'
+        }).done(function (data) {
+            $('#trending_books').empty().append(data.datax).show()
+            trending_books_tally = trending_books_tally + 8
+        })
+    })
 
 
 
