@@ -145,7 +145,7 @@ $(document).ready(function () {
     })
     $("#history_books").on('click','.delete',function (event) {
        $('#success-alert').hide()
-        var isbn = $('#history_isbn').text();
+        var isbn = $(this).closest('.media-body').find('.history_isbn').text();
         current_isbn = isbn;
     })
     // submit rating button inside modal
@@ -220,8 +220,7 @@ $(document).ready(function () {
             url: '/remove_book'
         }).done(function (data) {
             $('#success-delete-alert').show()
-            $('#history_books').empty().append(data.datax).show()
-
+            $('#history_books').empty().append(data.history_books).show()
         })
     })
 
