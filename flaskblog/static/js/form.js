@@ -217,7 +217,7 @@ $(document).ready(function () {
         $.ajax({
             data: {'userID':current_userID, 'ISBN':current_isbn},
             type: 'DELETE',
-            url: '/remove_book'
+            url: '/delete_book'
         }).done(function (data) {
             $('#success-delete-alert').show()
             $('#history_books').empty().append(data.history_books).show()
