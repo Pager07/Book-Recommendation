@@ -5,6 +5,7 @@ $(document).ready(function () {
     var number_books_rated;
     var trending_books_tally = 0 ;
     var current_page = 'home';
+    var next_new_book_isbn;
     $('#submit_user_id').on('submit' ,function(event){
         $('#recommended_books').empty()
         $.ajax({
@@ -45,6 +46,7 @@ $(document).ready(function () {
             type: 'POST',
             url: '/history'
         }).done(function (data) {
+            $('#adding_book').hide()
             $('#recommended_books').hide()
             $('#browse_books').hide()
             $('#trending_books').hide()
@@ -78,6 +80,7 @@ $(document).ready(function () {
             $('#page_type').text('Recommended books for user:' + current_userID )
             $('#page_type_info').text('The books on the left are the books I think you will like.')
             $('#history_books').hide()
+            $('#adding_book').hide()
             $('#browse_books').hide()
             $('#l_2_1').show()
             $('#l_2_2').hide()
@@ -93,6 +96,7 @@ $(document).ready(function () {
             type: 'POST',
             url: '/browse'
         }).done(function (data) {
+            $('#adding_book').hide()
             $('#recommended_books').hide()
             $('#history_books').hide()
             $('#browse_books').empty().append(data.datax).show()
@@ -103,11 +107,80 @@ $(document).ready(function () {
         })
     })
 
+    //    Adding book
+    var set_next_new_book_isbn = function(){
+         $.ajax({
+            type: 'GET',
+            url: '/add_book'
+        }).done(function (data) {
+            next_new_book_isbn = data.new_book_isbn
+        })
+    }
+    $('.add_book').on('click', function () {
+        $('#add-book-success-alert').hide()
+        $('#add-book-fail-alert').hide()
+        $('#recommended_books').hide()
+        $('#history_books').hide()
+        $('#browse_books').hide()
+        $('#adding_book').show()
+        set_next_new_book_isbn()
+        $('#page_type').text('Add books user:' + current_userID )
+        $('#page_type_info').text('The system will give the new book bookID/ISBN:'+ next_new_book_isbn)
+        $('#l_2_1').show()
+        $('#l_2_2').show()
+    })
+    $('#add_book_btn2').on('click', function (event) {
+        event.preventDefault();
+        var error = 1
+        var new_book_title = $('#new_book_title').val()
+        var new_book_genre_list = $("#new_book_genres").tagsinput('items')
+        var rating_value = $('#myRange2').val()
+        var genre_str = ''
+        if(new_book_genre_list.length >=1){
+            error = 0
+            new_book_genre_list.forEach(function (item,index) {
+                if(index != 0){
+                    genre_str = genre_str+'|'+item
+                }else{
+                    genre_str = genre_str + item
+                }
+            })
+        }
+        if(new_book_title.length < 1){
+            error = 1
+        }
+        if(error == 0){
+            var rating_obj = {'userID':current_userID, 'ISBN':next_new_book_isbn,'bookRating':rating_value}
+            var book_obj = {'ISBN':next_new_book_isbn,'book_title':new_book_title, 'genre':genre_str}
+            $.ajax({
+                data: {userID:current_userID,
+                       ISBN:next_new_book_isbn,
+                        bookRating: rating_value,
+                        genre: genre_str,
+                        book_title: new_book_title},
+                type: 'POST',
+                url: '/submit_new_book'
+            }).done(function (data) {
+                $('#add-book-fail-alert').hide()
+                $('#add-book-success-alert').show()
+                $('div#recommended_books').empty().append(data.recommended_books)
+                $('#history_books').empty().append(data.history_books)
+                $('#browse_books').empty().append(data.browse_books)
+                number_books_rated = number_books_rated + 1
+            })
+        }else{
+            $('#add-book-success-alert').hide()
+            $('#add-book-fail-alert').show()
+        }
+
+    })
+
     $('.log_out').on('click' , function () {
         $('#home').show()
         $('#recommended_books').empty()
         $('#history_books').empty()
         $('#browse_books').empty()
+        $('#adding_book').hide()
         $('#book_shelf').hide()
         $('#page_type2').hide()
         $("#success-activate-alert").hide()
@@ -121,6 +194,9 @@ $(document).ready(function () {
         $('#rating_value').html($('#myRange').val());
     })
 
+    $('#myRange2').on('input',function () {
+        $('#rating_value2').html($('#myRange2').val());
+    })
 
     $("#recommended_books").on('click','.give_rating',function (event) {
         $('#success-alert').hide()
@@ -145,6 +221,7 @@ $(document).ready(function () {
     })
     $("#history_books").on('click','.delete',function (event) {
        $('#success-alert').hide()
+        $('#success-delete-alert').hide()
         var isbn = $(this).closest('.media-body').find('.history_isbn').text();
         current_isbn = isbn;
     })
@@ -223,6 +300,8 @@ $(document).ready(function () {
             $('#history_books').empty().append(data.history_books).show()
         })
     })
+
+
 
 
 

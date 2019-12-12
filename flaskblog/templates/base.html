@@ -9,7 +9,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="{{ url_for('static' ,filename='js/form.js') }}"></script>
+    <script src="{{ url_for('static' ,filename='js/tagsinput.js') }}"></script>
     <script src="{{ url_for('static' ,filename='main.css') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tagsinput.css') }}">
 </head>
 <body>
     <div id="home" class="container-fluid">
@@ -23,6 +25,33 @@
             <div id="history_books" style="display: none"></div>
             <div id="browse_books" style="display: none;"></div>
             <div id="trending_books" style="display: none;"></div>
+            <div id="adding_book">
+                <p class="h1">Add a book to Bookify</p>
+                <form>
+                  <div class="form-group">
+                    <label for="new_book_title">Book Title</label>
+                    <input type="text" class="form-control" id="new_book_title" aria-describedby="titleHelp" placeholder="Enter Book Title">
+                    <small id="titleHelp" class="form-text text-muted">This book will be added to the Bookify!</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="new_book_genres">Genres</label>
+                    <input type="text" value="Fiction,Action,Romance," data-role="tagsinput" aria-describedby="genreHelp" id="new_book_genres">
+                    <small id="genreHelp" class="form-text text-muted">Use comma ',' to end the genre tag and start a new one!</small>
+                  </div>
+                   <div class="form-group">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="myRange2">
+                    <span>Rating:</span>
+                    <span id="rating_value2" style="font-weight: bold;color: red">5</span>
+                  </div>
+                  <button type="button" class="btn btn-primary" id="add_book_btn2">Add Book</button>
+                </form>
+                <div class="alert alert-success" role="alert" id="add-book-success-alert" style="display: none;">
+                    Book submission Complete!
+                </div>
+                <div class="alert alert-danger" role="alert" id="add-book-fail-alert" style="display: none;">
+                Book submission failed!
+              </div>
+            </div>
         </div>
         <div id="menu" class="col-md-4" >
           <div class="content-section">
@@ -34,6 +63,7 @@
                 <li class="list-group-item list-group-item-light browse" id="l_1"><a href="#">Browse</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_1"  style="display: none;" ><a href="#">History</a></li>
                 <li class="list-group-item list-group-item-light" id="l_2_2"  style="display: none;"><a href="#">Recommendation</a></li>
+                <li class="list-group-item list-group-item-light add_book" ><a href="#">Add Book</a></li>
                 <li class="list-group-item list-group-item-light log_out" ><a href="#">Log Out</a></li>
               </ul>
                <ul class="list-group" id="main_list2" style="display: none">
@@ -46,7 +76,7 @@
         </div>
       </div>
     </main>
-{#model#}
+{#model for rating submmison#}
      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
