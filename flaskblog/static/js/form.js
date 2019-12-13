@@ -124,6 +124,7 @@ $(document).ready(function () {
         $('#add-book-fail-alert').hide()
         $('#recommended_books').hide()
         $('#delete_bookify_book').hide()
+        $('#trending_books').hide()
         $('#history_books').hide()
         $('#browse_books').hide()
         $('#delete_bookify_book').hide()
@@ -187,6 +188,7 @@ $(document).ready(function () {
         $('#history_books').hide()
         $('#browse_books').hide()
         $('#adding_book').hide()
+        $('#trending_books').hide()
         $('#delete_bookify_book').show()
         $('#page_type').text('Delete books user:' + current_userID )
         $('#page_type_info').text('The system will remove the given ISBN')
@@ -290,6 +292,7 @@ $(document).ready(function () {
 
     //button to add new user
     $('#add_new_user').on('click',  function () {
+
         current_page = 'trending'
         $.ajax({
             type: 'GET',
@@ -314,11 +317,13 @@ $(document).ready(function () {
     })
 
     $('#l_0').on('click' , function () {
+         $('#trending_wait').show()
         $.ajax({
             data:{'trending_books_tally':trending_books_tally},
             type: 'POST',
             url: '/get_trending'
         }).done(function (data) {
+            $('#trending_wait').hide()
             $('#trending_books').empty().append(data.datax).show()
             trending_books_tally = trending_books_tally + 8
         })
