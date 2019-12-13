@@ -47,6 +47,7 @@ $(document).ready(function () {
             url: '/history'
         }).done(function (data) {
             $('#adding_book').hide()
+            $('#delete_bookify_book').hide()
             $('#recommended_books').hide()
             $('#browse_books').hide()
             $('#trending_books').hide()
@@ -81,6 +82,7 @@ $(document).ready(function () {
             $('#page_type_info').text('The books on the left are the books I think you will like.')
             $('#history_books').hide()
             $('#adding_book').hide()
+            $('#delete_bookify_book').hide()
             $('#browse_books').hide()
             $('#l_2_1').show()
             $('#l_2_2').hide()
@@ -97,6 +99,7 @@ $(document).ready(function () {
             url: '/browse'
         }).done(function (data) {
             $('#adding_book').hide()
+            $('#delete_bookify_book').hide()
             $('#recommended_books').hide()
             $('#history_books').hide()
             $('#browse_books').empty().append(data.datax).show()
@@ -120,8 +123,10 @@ $(document).ready(function () {
         $('#add-book-success-alert').hide()
         $('#add-book-fail-alert').hide()
         $('#recommended_books').hide()
+        $('#delete_bookify_book').hide()
         $('#history_books').hide()
         $('#browse_books').hide()
+        $('#delete_bookify_book').hide()
         $('#adding_book').show()
         set_next_new_book_isbn()
         $('#page_type').text('Add books user:' + current_userID )
@@ -174,6 +179,34 @@ $(document).ready(function () {
         }
 
     })
+    //Delete Book From Bookify
+   $('.delete_book_bookify').on('click',function () {
+        $('#delete-book-bookify-fail-alert').hide()
+        $('#delete-book-bookify-success-alert').hide()
+        $('#recommended_books').hide()
+        $('#history_books').hide()
+        $('#browse_books').hide()
+        $('#adding_book').hide()
+        $('#delete_bookify_book').show()
+        $('#page_type').text('Delete books user:' + current_userID )
+        $('#page_type_info').text('The system will remove the given ISBN')
+        $('#l_2_1').show()
+        $('#l_2_2').show()
+    })
+    $('#delete_book_bookify_btn').on('click', function () {
+        var isbn = $('#delete_book_bookify_isbn').val()
+        $.ajax({
+            data:{ISBN:isbn},
+            url:'/delete_book_bookify',
+            type: 'DELETE'
+        }).done(function (data) {
+            if(data.error){
+                $('#delete-book-bookify-fail-alert').show()
+            }else{
+                $('#delete-book-bookify-success-alert').show()
+            }
+        })
+    })
 
     $('.log_out').on('click' , function () {
         $('#home').show()
@@ -181,6 +214,7 @@ $(document).ready(function () {
         $('#history_books').empty()
         $('#browse_books').empty()
         $('#adding_book').hide()
+        $('#delete_bookify_book').hide()
         $('#book_shelf').hide()
         $('#page_type2').hide()
         $("#success-activate-alert").hide()
