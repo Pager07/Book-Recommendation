@@ -339,6 +339,17 @@ $(document).ready(function () {
             $('#history_books').empty().append(data.history_books).show()
         })
     })
+    
+//    Deleting user 
+    $('#delete_user_btn').on('click',function (event) {
+        $.ajax({
+            data: {'userID':current_userID},
+            type: 'DELETE',
+            url: '/delete_user'
+        })
+        $('.log_out').click()
+
+    })
 
 
 
