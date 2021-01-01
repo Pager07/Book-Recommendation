@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block home %}
+    <h1> BOOKIFY </h1>
+    <form id="submit_user_id">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="user_id_input">Input Your UserID</label>
+                <input type="text" class="form-control" id="user_id_input" placeholder="1234">
+            </div>
+        </div>>
+        <button type="submit" class="btn btn-outline-primary" id="submit_button">Login</button>
+    </form>
+    <button class="btn btn-outline-primary" id="add_new_user" data-toggle="modal" data-target="#exampleModalCenter2">Add New User</button>
+    <div id="success_alert" class="alert alert-success" role="alert" style="display:none;"></div>
+    <div id="fail_alert" class="alert alert-danger " role="alert" style="display:none;"></div>
+
+{% endblock %}
